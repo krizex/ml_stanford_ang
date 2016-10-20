@@ -24,14 +24,10 @@ sigma = 0.001;
 %
 
 
-C /= 3;
-sigma /= 3;
 result = [];
 
-for i = 1:20
-  C *= 3;
-  for j = 1:20
-    sigma *= 3;
+for C = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+  for sigma = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
     model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
     yPredict = svmPredict(model, Xval);
     error = mean(double(yval ~= yPredict));
